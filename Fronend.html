@@ -1,0 +1,69 @@
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Rock Paper Scissors Game&lt;/title&gt;
+&lt;style&gt;
+body {
+font-family: Arial, sans-serif;
+text-align: center;
+}
+h1 {
+color: #333;
+}
+}
+button {
+font-size: 16px;
+padding: 10px 20px;
+margin: 10px;
+cursor: pointer;
+}
+button:hover {
+background-color: #ddd;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Rock Paper Scissors Game&lt;/h1&gt;
+&lt;p&gt;Choose your move:&lt;/p&gt;
+&lt;button onclick=&quot;playGame(&#39;r&#39;)&quot;&gt;Rock&lt;/button&gt;
+&lt;button onclick=&quot;playGame(&#39;p&#39;)&quot;&gt;Paper&lt;/button&gt;
+&lt;button onclick=&quot;playGame(&#39;s&#39;)&quot;&gt;Scissors&lt;/button&gt;
+&lt;p id=&quot;result&quot;&gt;&lt;/p&gt;
+&lt;script&gt;
+function playGame(move) {
+fetch(&#39;/play&#39;, {
+method: &#39;POST&#39;,
+headers: {
+&#39;Content-Type&#39;: &#39;application/json&#39;,
+
+13 | Page
+
+},
+body: JSON.stringify({ move }),
+})
+.then(response =&gt; response.json())
+.then(data =&gt; {
+displayResult(data);
+});
+}
+function displayResult(result) {
+const resultElement = document.getElementById(&#39;result&#39;);
+switch (result) {
+case -1:
+resultElement.innerText = &#39;Computer wins!&#39;;
+break;
+case 0:
+resultElement.innerText = &#39;It\&#39;s a draw!&#39;;
+break;
+case 1:
+resultElement.innerText = &#39;You win!&#39;;
+break;
+default:
+resultElement.innerText = &#39;Invalid result&#39;;
+}
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
